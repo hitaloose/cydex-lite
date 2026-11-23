@@ -30,7 +30,7 @@ Nome: "CYDex Lite". Não usar "Poké"/"Pokémon" em nomes de projeto, repositór
   - **Sem visto/capturado:** não há leitura de save. Toda espécie aparece completa, e o sorteio cobre as 1025.
   - **"Geração X":** fica embaixo das medidas, na coluna de status.
   - **Rodapé de 24 px (borda 1 + padding 4):** é o status do Claude.
-    - À esquerda, um ponto de 8 px e o estado: Desconectado (anel faint), Ocioso (anel muted), "Rodando · n" (cheio, verde) ou Esperando (cheio, amarelo).
+    - À esquerda, um ponto de 8 px e o estado: Desconectado (anel faint), Ocioso (anel muted), "Rodando · n" (cheio, verde) ou Esperando (cheio, amarelo). Com `waiting > 0` e sem pedido aberto na L02, o texto vira "Aprove no PC" em amarelo.
     - À direita, só com link: `Nv n` (12/700 muted), uma barra de 52×4 até o próximo nível e `31,2K hoje`.
 - Toque em qualquer lugar mostra a próxima espécie e reinicia o timer.
 - Troca a cada 60 s, em ordem aleatória (saco sem repetir, `showcase_pick`). Desloca 1–2 px a cada troca.
@@ -88,7 +88,7 @@ O mesmo do CYDex. Os detalhes estão no CLAUDE.md de lá; o resumo:
 - A pilha da loopTask tem 12 KB (`getArduinoLoopTaskStackSize`), e a menor folga medida foi 9,3 KB.
 - RAM estática: 69,8 KB.
 - Com o Claude Desktop real conectado, pareado e mandando heartbeats: 122,7 KB livres, maior bloco 102 KB (2026-11-23). O desktop negociou MTU 23, então as linhas vão picadas em 20 B.
-- Ainda não medido com o pedido de permissão aberto.
+- Com o pedido de permissão aberto (L02): 122,1 KB livres, maior bloco 102 KB, pico do LVGL 4,7 KB (2026-11-23).
 
 ## Dados
 
@@ -191,5 +191,5 @@ Com o Claude Desktop real: Help → Troubleshooting → Enable Developer Mode, d
 
 - Tela mínima de Ajustes (toque longo): intervalo, brilho, idioma, som, "esquecer pareamento".
 - Apagar a tela quando o computador dorme. O protocolo não avisa; dá para usar a falta de heartbeat.
-- Medir a memória com o pedido de permissão aberto.
+- **Pedido às vezes sem `prompt`:** em 2026-11-23, com o mesmo Claude Code no app, um pedido de Bash veio só como `"waiting":1`, sem `prompt`, por mais de 20 s. Outro veio completo (`id` UUID de 36 caracteres), abriu a L02 e foi aprovado pelo CYD. Quando falta o `prompt`, o rodapé mostra "Aprove no PC". Ainda não se sabe o que faz o desktop omitir o campo.
 - **Tokens:** no começo, com sessões do Claude Code no app, o desktop mandava `"tokens":0,"tokens_today":0` em todo heartbeat (log `<-` do `cyd_debug`). Mais tarde, no mesmo dia (2026-11-23), o `tokens_today` veio preenchido e apareceu no rodapé. Falta confirmar se o `tokens` também sobe e se o nível (`TokenLedger`) acompanha.

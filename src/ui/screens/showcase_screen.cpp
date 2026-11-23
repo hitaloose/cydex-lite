@@ -234,9 +234,16 @@ void fill_footer() {
       break;
     case ClaudeState::Waiting:
       dot_color = theme::WAITING;
-      text_color = theme::TEXT;
       filled = true;
-      snprintf(label, sizeof(label), "%s", tr(STR_CL_WAITING));
+      // Sem prompt (o Claude Code manda só o waiting), a L02 não abre: avisa
+      // que a decisão é no computador.
+      if (claude_prompt().open()) {
+        text_color = theme::TEXT;
+        snprintf(label, sizeof(label), "%s", tr(STR_CL_WAITING));
+      } else {
+        text_color = theme::WAITING;
+        snprintf(label, sizeof(label), "%s", tr(STR_CL_APPROVE_ON_PC));
+      }
       break;
   }
 

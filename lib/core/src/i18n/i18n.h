@@ -40,6 +40,7 @@ typedef enum {
   STR_CL_IDLE,
   STR_CL_RUNNING_FMT, /* %u = sessões rodando */
   STR_CL_WAITING,
+  STR_CL_APPROVE_ON_PC, /* waiting sem prompt: só dá pra aprovar no computador */
   STR_CL_LEVEL_FMT,   /* %u = nível */
   STR_CL_TODAY,
 

@@ -21,6 +21,7 @@ const char *const LANG_EN_STRINGS[STR_COUNT] = {
     [STR_CL_IDLE] = "Idle",
     [STR_CL_RUNNING_FMT] = "Running · %u",
     [STR_CL_WAITING] = "Waiting",
+    [STR_CL_APPROVE_ON_PC] = "Approve on PC",
     [STR_CL_LEVEL_FMT] = "Lv %u",
     [STR_CL_TODAY] = "today",
 

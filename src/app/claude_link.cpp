@@ -42,6 +42,7 @@ static void ack(const char *cmd, bool ok = true, const char *error = nullptr) {
 static void prompt_event(PromptEvent ev) {
   if (ev == PromptEvent::None) return;
   s_prompt_version++;
+  s_state.bump();  // o rodapé troca entre "Esperando" e "Aprove no PC"
   if (ev == PromptEvent::Open) {
     s_prompt_opened_at = millis();
     power_wake();
@@ -52,6 +53,9 @@ static void prompt_event(PromptEvent ev) {
 }
 
 static void on_snapshot(const BuddySnapshot &s) {
+  LOG_D(TAG, "hb total=%u run=%u wait=%u tok=%lu hoje=%lu prompt=%s", (unsigned)s.total,
+        (unsigned)s.running, (unsigned)s.waiting, (unsigned long)s.tokens,
+        (unsigned long)s.tokens_today, s.has_prompt ? s.prompt.id : "-");
   s_state.on_snapshot(s, millis());
   if (s_ledger.add(s.tokens)) {
     LOG_I(TAG, "nível %u", (unsigned)s_ledger.level());
@@ -80,7 +84,7 @@ static void on_status() {
 }
 
 static void on_line(const char *line, size_t len) {
-  LOG_D(TAG, "<- %.*s", (int)(len > 300 ? 300 : len), line);
+  LOG_D(TAG, "<- %.*s", (int)len, line);
   BuddyMsg m;
   buddy_parse(line, len, &m);
   switch (m.kind) {
