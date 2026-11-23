@@ -1,0 +1,9 @@
+.pio/
+.vscode/
+build/
+tools/.cache/
+__pycache__/
+.DS_Store
+tools/node_modules/
+tools/fonts/
+.venv/

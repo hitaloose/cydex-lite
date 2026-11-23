@@ -1,0 +1,13 @@
+{
+  "name": "cydex-lite-tools",
+  "private": true,
+  "description": "Geradores de assets do CYDex Lite (fontes e ícones do LVGL).",
+  "scripts": {
+    "fonts": "node gen_fonts.mjs",
+    "icons": "node gen_icons.mjs"
+  },
+  "devDependencies": {
+    "lv_font_conv": "1.5.2",
+    "@resvg/resvg-js": "2.6.2"
+  }
+}

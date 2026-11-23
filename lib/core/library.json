@@ -1,0 +1,10 @@
+{
+  "name": "cydex-lite-core",
+  "version": "0.1.0",
+  "description": "Lógica do CYDex Lite sem Arduino: formato do SD, vitrine, protocolo do Hardware Buddy.",
+  "frameworks": "*",
+  "platforms": "*",
+  "dependencies": {
+    "bblanchon/ArduinoJson": "7.2.1"
+  }
+}
